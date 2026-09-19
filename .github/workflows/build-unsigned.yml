@@ -18,15 +18,16 @@ jobs:
             -target FakeWalletWebView \
             -sdk iphoneos \
             -configuration Release \
-            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             AD_HOC_CODE_SIGNING_ALLOWED=NO
 
       - name: Package IPA
         run: |
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -type d -path "*/Build/Products/Release-iphoneos/FakeWalletWebView.app" | head -n 1)
+          test -n "$APP_PATH"
           mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/FakeWalletWebView.app Payload/
+          cp -R "$APP_PATH" Payload/FakeWalletWebView.app
           zip -r FakeWalletWebView-unsigned.ipa Payload
 
       - name: Upload IPA
