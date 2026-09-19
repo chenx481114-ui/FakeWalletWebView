@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: macos-14
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -14,7 +15,7 @@ jobs:
         run: |
           xcodebuild \
             -project FakeWalletWebView.xcodeproj \
-            -scheme FakeWalletWebView \
+            -target FakeWalletWebView \
             -sdk iphoneos \
             -configuration Release \
             -derivedDataPath build \
